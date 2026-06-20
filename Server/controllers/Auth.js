@@ -8,9 +8,8 @@ require("dotenv").config();
 // send otp
 
 exports.sendOTP = async (req,res) => {
-
    try{
-     // fetch email from request ki body
+     // fetch email from request ki body 
     const {email} = req.body;
 
     // check if user already exists
@@ -21,7 +20,7 @@ exports.sendOTP = async (req,res) => {
         return res.status(401).json({
             success:false,
             message:"User already registered",
-        })
+        });
     }
 
     // generate otp
@@ -30,7 +29,7 @@ exports.sendOTP = async (req,res) => {
         lowerCaseAlphabets:false,
         specialChars:false,
     });
-    console.log("otp generator is :",otp)
+    console.log("otp generator is :",otp);
 
     // check unique otp or not
     const result = await OTP.findONe({otp:otp});
@@ -55,14 +54,14 @@ exports.sendOTP = async (req,res) => {
         success:true,
         message:"OTP sent successfully",
         otp,
-    })
+    });
    }
    catch(error){
       console.log(error);
       return res.status(500).json({
         success:false,
         messgae:error.message,
-      })
+      });
    }
 
 }
@@ -235,3 +234,5 @@ exports.changePassword = async (req,res) => {
     // return response
 
 }
+
+
