@@ -57,10 +57,60 @@ exports.createCourse = async (req,res) => {
             tag:tagDetails._id,
             thumbnail:thumbnailImage.secure_url,
         })
-      
+
+        // add the new course to the user schema of instructor
+        await User.findByIdAndUpdate(
+            {_id:instructorDetails._id},
+            {
+                $push:{
+                    courses:newCourse._id,
+                }
+            },
+            {new:true},
+        );
+
+        // update the tag ka schema
+
+        // return response
+        return res.status(200).json({
+                success:true,
+                message:"Course created successfully",
+                data:newCourse,
+            });
+
     }
     catch(error)
     {
+       console.log(error);
+       return res.status(500).json({
+                success:false,
+                message:"Failed to create course",
+                error:error.message,
+            });
+    }
+}
 
+
+// getAllCourses handler function
+
+exports.showAllCourses = async (req,res) => {
+    try{
+        const allCourses = await Course.find({});
+
+        return res.status(200).json({
+            success:true,
+            message:"Data for all courses fetched successfully",
+            data:allCourses,
+        });
+
+    }
+    catch(error)
+    {
+        console.log(error);
+        return res.status(500).json({
+                success:false,
+                message:"Cannot Fetch course data",
+                error:error.message,
+            });
     }
 }
