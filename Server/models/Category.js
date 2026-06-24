@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
     AI/ML
 */
 
-const tagschema = new mongoose.Schema({
+const categoryschema = new mongoose.Schema({
 
    // Tag name
    name:{
@@ -35,4 +35,4 @@ const tagschema = new mongoose.Schema({
    }
 });
 
-module.exports = mongoose.model("Tag", tagschema);
+module.exports = mongoose.model("Category", categoryschema);
