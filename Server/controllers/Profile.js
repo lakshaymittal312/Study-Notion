@@ -66,13 +66,48 @@ exports.deleteAccount = async (req,res) => {
         // delete profile
         await Profile.findByIdAndDelete({_id:userDetails.additionalDetails});
 
+        // unenroll user form all enrolled courses
+
         // delete user
         await User.findByIdAndDelete({_id:id});
-        
+
         // return response
+        return res.status(200).json({
+            success:true,
+            message:"User Deleted Successfully",
+        })
+    }
+    catch(error){
+        return res.status(500).json({
+            success:false,
+            message:"User cannot be Deleted Successfully",
+        });
+    }
+}
+
+
+exports.getAllUserDetails = async (req,res) => {
+    try{
+        // get id
+        const id = req.user.id;
+
+        // validation and get user detail
+        const userDetail = await User.findById(id).populate("additionalDetails").exec();
+
+        // return response
+        return res.status(200).json({
+            success:true,
+            message:"User Data fetched successfully",
+        }
+        )
 
     }
     catch(error){
+        return res.status(500).json({
+            success:false,
+            message:"User Data donot fetched successfully",
 
+        }
+        );
     }
 }
