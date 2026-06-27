@@ -1,38 +1,19 @@
 const mongoose = require("mongoose");
 
-/*
-    Used to categorize courses.
-
-    Examples:
-    Web Development,
-    Data Science,
-    AI/ML
-*/
-
-const categoryschema = new mongoose.Schema({
-
-   // Tag name
-   name:{
-    type:String,
-    required:true,
-   },
-
-   // Tag description
-   description:{
-    type:String,
-   },
-
-   /*
-      Links Tag → Course
-
-      One Tag ---- Many Courses
-
-      Ideally this should be an ARRAY.
-   */
-   course:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"Course",
-   }
+// Define the Tags schema
+const categorySchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    description: { type: String },
+    courses: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Course",
+        },
+    ],
 });
 
-module.exports = mongoose.model("Category", categoryschema);
+// Export the Tags model
+module.exports = mongoose.model("Category", categorySchema);
