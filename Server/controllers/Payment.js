@@ -146,10 +146,6 @@ exports.verifySignature = async (req,res) => {
                     success:true,
                     message:"Signature verified and course added",
                 })
-
-
-
-
         }
         catch(error){
             console.log(error);
@@ -157,7 +153,6 @@ exports.verifySignature = async (req,res) => {
                     success:false,
                     message:error.message,
                 })
-
         }
     }
     else{
@@ -166,6 +161,4 @@ exports.verifySignature = async (req,res) => {
                     message:"Invalid request",
                 })
     }
-
-
 };
